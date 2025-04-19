@@ -169,15 +169,18 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title" id="bookDetailsModalLabel" style="display: none;">Book Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pt-0">
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="sticky-top" style="top: 1rem;">
-                            <img id="modalBookCover" src="" alt="" class="img-fluid book-cover mb-3 rounded shadow">
-                            <button class="want-to-read-btn w-100 mb-3">Want to read</button>
-                            <div class="book-stats bg-light p-3 rounded">
+                            <div class="book-cover-wrapper mb-4">
+                                <img id="modalBookCover" src="" alt="" class="img-fluid book-cover rounded shadow">
+                            </div>
+                            <button class="want-to-read-btn w-100 mb-4">Want to read</button>
+                            <div class="book-stats bg-light p-4 rounded">
                                 <div class="rating-container mb-2">
                                     <div class="stars">★★★★★</div>
                                     <span id="modalRating" class="rating-number">4.5</span>
@@ -553,24 +556,71 @@
 
     .modal-content {
         border: none;
-        border-radius: 8px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 1;
     }
 
     .modal-header {
-        padding: 1rem 1rem 0;
+        padding: 1.5rem 1.5rem 0;
+        border: none;
+        position: relative;
+        z-index: 1;
     }
 
     .btn-close {
-        background-color: #f4f4f4;
-        border-radius: 50%;
-        padding: 0.75rem;
+        background: transparent;
+        border: none;
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto;
+        opacity: 0.5;
+        transition: all 0.2s ease;
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        z-index: 2;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-close::before,
+    .btn-close::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1.5rem;
+        height: 2px;
+        background-color: var(--goodreads-brown);
+        transform-origin: center;
+        pointer-events: none;
+    }
+
+    .btn-close::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .btn-close::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .btn-close:hover {
         opacity: 1;
+        transform: rotate(90deg);
+    }
+
+    .btn-close:focus {
+        box-shadow: none;
+        outline: none;
     }
 
     .modal-book-title {
         font-family: 'Merriweather', serif;
         color: var(--goodreads-brown);
-        font-size: 1.75rem;
+        font-size: 2rem;
         margin-bottom: 0.5rem;
         line-height: 1.3;
     }
@@ -578,39 +628,72 @@
     .modal-book-author {
         color: var(--goodreads-secondary);
         font-size: 1.1rem;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .author-name {
         color: var(--goodreads-link);
         cursor: pointer;
+        transition: color 0.2s ease;
     }
 
     .author-name:hover {
+        color: var(--goodreads-brown);
         text-decoration: underline;
     }
 
     .section-heading {
         font-family: 'Merriweather', serif;
         color: var(--goodreads-brown);
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         margin-bottom: 1rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--goodreads-brown);
     }
 
     .book-summary,
     .recommendation-text {
         color: var(--goodreads-text);
-        font-size: 1rem;
-        line-height: 1.6;
+        font-size: 1.05rem;
+        line-height: 1.7;
     }
 
     .book-stats {
         border-top: 1px solid #eee;
-        padding-top: 1rem;
+        padding: 1.5rem;
+    }
+
+    .book-cover-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 150%; /* 2:3 aspect ratio for book covers */
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        overflow: hidden;
     }
 
     #modalBookCover {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    #modalBookCover:hover {
+        transform: scale(1.02);
     }
 
     @@media (max-width: 768px) {
@@ -621,13 +704,28 @@
         .modal-book-title {
             font-size: 1.5rem;
         }
+
+        .book-cover-wrapper {
+            padding-top: 120%; /* Slightly different ratio for mobile */
+        }
+    }
+
+    .sticky-top {
+        z-index: 0;
     }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap modal
+        const bookDetailsModal = document.getElementById('bookDetailsModal');
+        const modal = new bootstrap.Modal(bookDetailsModal, {
+            backdrop: true,
+            keyboard: true
+        });
+
+        // Handle "Want to read" button clicks
         const wantToReadButtons = document.querySelectorAll('.want-to-read-btn');
-        
         wantToReadButtons.forEach(button => {
             button.addEventListener('click', function() {
                 if (this.classList.contains('reading')) {
@@ -661,10 +759,26 @@
                     document.getElementById('modalRatingCount').textContent = 
                         `(${book.ratingCount >= 1000 ? (book.ratingCount/1000).toFixed(1) + 'K' : book.ratingCount} ratings)`;
                     
-                    const modal = new bootstrap.Modal(document.getElementById('bookDetailsModal'));
                     modal.show();
                 }
             });
+        });
+
+        // Handle modal close events
+        bookDetailsModal.addEventListener('hidden.bs.modal', function () {
+            // Reset modal content
+            document.getElementById('modalBookCover').src = '';
+            document.getElementById('modalBookTitle').textContent = '';
+            document.querySelector('.author-name').textContent = '';
+            document.getElementById('modalBookSummary').textContent = '';
+            document.getElementById('modalWhyRecommended').textContent = '';
+        });
+
+        // Handle close button clicks
+        const closeButton = bookDetailsModal.querySelector('.btn-close');
+        closeButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.hide();
         });
     });
 </script> 
