@@ -483,15 +483,15 @@
     "ratingCount": 1876,
     "isBookmarked": false
   },
-  {
-    "id": 45,
-    "title": "Insurance Tech Patterns: Best Practices for Developers",
-    "author": "John Doe",
-    "summary": "A comprehensive guide to building insurance technology systems using modern software development practices.",
-    "imageUrl": "https://m.media-amazon.com/images/I/51WIKil9YvL._SX331_BO1,204,203,200_.jpg",
-    "whyRecommended": "Essential reading for developers working in the insurance industry, covering patterns and best practices specific to insurance technology.",
-    "rating": 4.7,
-    "ratingCount": 2156,
-    "isBookmarked": false
-  }
+   {
+     "id": 45,
+     "title": "Insurance Tech Patterns: Best Practices for Developers",
+     "author": "Muhammed Akbaş",
+     "summary": "A comprehensive guide to building insurance technology systems using modern software development practices.",
+     "imageUrl": "https://m.media-amazon.com/images/I/71Tp8e5HadL._SY522_.jpg",
+     "whyRecommended": "Essential reading for developers working in the insurance industry, covering patterns and best practices specific to insurance technology.",
+     "rating": 4.7,
+     "ratingCount": 2156,
+     "isBookmarked": false
+   }
 ] 
