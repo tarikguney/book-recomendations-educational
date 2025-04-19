@@ -172,28 +172,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pt-0">
-                <div class="row">
+                <div class="row g-4">
                     <div class="col-md-4">
-                        <img id="modalBookCover" src="" alt="" class="img-fluid book-cover mb-3">
-                        <button class="want-to-read-btn w-100 mb-3">Want to read</button>
-                        <div class="book-stats">
-                            <div class="rating-container mb-2">
-                                <div class="stars">★★★★★</div>
-                                <span id="modalRating" class="rating-number">4.5</span>
-                                <span id="modalRatingCount" class="rating-count">(3.8K ratings)</span>
+                        <div class="sticky-top" style="top: 1rem;">
+                            <img id="modalBookCover" src="" alt="" class="img-fluid book-cover mb-3 rounded shadow">
+                            <button class="want-to-read-btn w-100 mb-3">Want to read</button>
+                            <div class="book-stats bg-light p-3 rounded">
+                                <div class="rating-container mb-2">
+                                    <div class="stars">★★★★★</div>
+                                    <span id="modalRating" class="rating-number">4.5</span>
+                                    <span id="modalRatingCount" class="rating-count">(3.8K ratings)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h2 id="modalBookTitle" class="modal-book-title"></h2>
-                        <p id="modalBookAuthor" class="modal-book-author">by <span class="author-name"></span></p>
-                        <div class="book-description mt-4">
-                            <h3 class="section-heading">About this book</h3>
-                            <p id="modalBookSummary" class="book-summary"></p>
-                        </div>
-                        <div class="book-recommendation mt-4">
-                            <h3 class="section-heading">Why we recommend it</h3>
-                            <p id="modalWhyRecommended" class="recommendation-text"></p>
+                        <div class="book-details">
+                            <h2 id="modalBookTitle" class="modal-book-title mb-3"></h2>
+                            <p id="modalBookAuthor" class="modal-book-author text-muted mb-4">by <span class="author-name"></span></p>
+                            
+                            <div class="book-description mb-4">
+                                <h3 class="section-heading mb-3">About this book</h3>
+                                <p id="modalBookSummary" class="book-summary"></p>
+                            </div>
+                            
+                            <div class="book-recommendation">
+                                <h3 class="section-heading mb-3">Why we recommend it</h3>
+                                <p id="modalWhyRecommended" class="recommendation-text"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
