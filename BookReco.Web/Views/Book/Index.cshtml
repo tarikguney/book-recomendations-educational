@@ -113,7 +113,9 @@
                     <div class="book-item">
                         <div class="book-card">
                             <div class="position-relative mb-2">
-                                <img src="@book.ImageUrl" class="book-cover" alt="@book.Title">
+                                <div class="book-cover-container">
+                                    <img src="@book.ImageUrl" class="book-cover" alt="@book.Title">
+                                </div>
                             </div>
                             <div class="book-info">
                                 <h2 class="book-title">
@@ -237,40 +239,94 @@
 
     .books-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1.5rem;
         margin-top: 1rem;
     }
 
     .book-item {
-        min-width: 120px;
-        max-width: 180px;
+        min-width: 200px;
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
     }
 
     .book-card {
-        margin-bottom: 1rem;
+        height: auto;
+        min-height: 450px;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        overflow: hidden;
+    }
+    
+    .book-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .book-cover-container {
+        position: relative;
+        width: 100%;
+        height: 280px;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .book-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-        transition: box-shadow 0.2s ease-in-out;
+        height: 100%;
+        object-fit: cover;
+        background-color: #f5f5f5;
     }
     
-    .book-cover:hover {
-        box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    .book-cover::before {
+        content: "No Image";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #999;
+        font-size: 0.9rem;
+        display: none;
+    }
+    
+    .book-cover:not([src])::before,
+    .book-cover[src=""]::before {
+        display: block;
+    }
+    
+    .book-cover:not([src]),
+    .book-cover[src=""] {
+        background-color: #f5f5f5;
     }
     
     .book-info {
-        padding: 0.5rem 0;
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     
     .book-title {
         font-family: 'Merriweather', serif;
-        font-size: 0.9rem;
+        font-size: 1rem;
         line-height: 1.3;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.5rem;
+        height: 2.6em;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
     
     .title-link {
@@ -293,6 +349,7 @@
         align-items: center;
         gap: 0.5rem;
         font-size: 0.8rem;
+        margin-bottom: 1rem;
     }
     
     .stars {
@@ -323,6 +380,7 @@
     }
     
     .want-to-read-btn {
+        margin-top: auto;
         background-color: #409D69;
         color: white;
         border: none;
@@ -331,7 +389,6 @@
         font-size: 0.875rem;
         font-weight: 500;
         width: 100%;
-        max-width: 200px;
         text-align: center;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -358,11 +415,26 @@
 
     @@media (max-width: 768px) {
         .books-grid {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
         .book-item {
-            min-width: 100px;
+            min-width: 140px;
+            max-width: 140px;
+            height: auto;
+        }
+
+        .book-card {
+            min-height: 380px;
+        }
+
+        .book-cover-container {
+            height: 200px;
+        }
+
+        .book-title {
+            font-size: 0.85rem;
         }
     }
 
