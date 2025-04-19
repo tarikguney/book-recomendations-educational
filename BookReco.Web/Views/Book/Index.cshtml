@@ -4,68 +4,421 @@
     ViewData["Title"] = "Book Recommendations";
 }
 
-<div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col">
-            <h1 class="display-4 text-center">Developer's Reading List</h1>
-            <p class="lead text-center text-muted">Curated books to level up your software development skills</p>
+<div class="highlight-carousel mb-4">
+    <div id="bookHighlights" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#bookHighlights" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#bookHighlights" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#bookHighlights" data-bs-slide-to="2"></button>
         </div>
-    </div>
-
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var book in Model)
-        {
-            <div class="col">
-                <div class="card h-100 shadow-sm hover-card">
-                    <div class="position-relative">
-                        <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="height: 300px; object-fit: cover;">
-                        <div class="position-absolute top-0 end-0 m-2">
-                            <span class="badge bg-primary rounded-pill">Book #@book.Id</span>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel-content">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="https://m.media-amazon.com/images/I/51W1sBPO7tL._SX380_BO1,204,203,200_.jpg" 
+                                 class="highlight-image" alt="The Pragmatic Programmer">
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@book.Title</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">by @book.Author</h6>
-                        <p class="card-text text-truncate">@book.Summary</p>
-                    </div>
-                    <div class="card-footer bg-transparent border-top-0">
-                        <div class="d-grid">
-                            <a asp-action="Details" asp-route-id="@book.Id" 
-                               class="btn btn-outline-primary">Learn More</a>
+                        <div class="col-md-8">
+                            <div class="highlight-text">
+                                <h2 class="highlight-title">Featured: The Pragmatic Programmer</h2>
+                                <p class="highlight-description">
+                                    "The Pragmatic Programmer" is a timeless guide that helps developers become more effective and efficient.
+                                    Discover practical advice and wisdom that remains relevant across all technology stacks.
+                                </p>
+                                <div class="highlight-meta">
+                                    <div class="rating-stars">★★★★★</div>
+                                    <span class="rating-value">4.7</span>
+                                    <span class="rating-count">(3.8K ratings)</span>
+                                </div>
+                                <button class="want-to-read-btn mt-3">Want to read</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        }
+            <div class="carousel-item">
+                <div class="carousel-content">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="https://m.media-amazon.com/images/I/41xShlnTZTL._SX376_BO1,204,203,200_.jpg" 
+                                 class="highlight-image" alt="Clean Code">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="highlight-text">
+                                <h2 class="highlight-title">Trending: Clean Code</h2>
+                                <p class="highlight-description">
+                                    Transform your coding practices with "Clean Code". Learn the principles of writing
+                                    maintainable, readable code that will make you a better programmer.
+                                </p>
+                                <div class="highlight-meta">
+                                    <div class="rating-stars">★★★★★</div>
+                                    <span class="rating-value">4.8</span>
+                                    <span class="rating-count">(5.2K ratings)</span>
+                                </div>
+                                <button class="want-to-read-btn mt-3">Want to read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-content">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg" 
+                                 class="highlight-image" alt="Designing Data-Intensive Applications">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="highlight-text">
+                                <h2 class="highlight-title">Most Popular: Designing Data-Intensive Applications</h2>
+                                <p class="highlight-description">
+                                    Dive deep into the principles of building scalable systems. Essential reading for
+                                    anyone working with distributed systems or large-scale applications.
+                                </p>
+                                <div class="highlight-meta">
+                                    <div class="rating-stars">★★★★★</div>
+                                    <span class="rating-value">4.9</span>
+                                    <span class="rating-count">(4.5K ratings)</span>
+                                </div>
+                                <button class="want-to-read-btn mt-3">Want to read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bookHighlights" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bookHighlights" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="content-wrapper bg-white p-4 mb-4">
+        <div class="recommendation-header">
+            <div class="enjoyed-section mb-4">
+                <span class="enjoyed-text">Because you enjoyed</span>
+                <a href="#" class="book-link">The Power of Now: A Guide to Spiritual Enlightenment</a>
+            </div>
+            
+            <div class="books-grid">
+                @foreach (var book in Model)
+                {
+                    <div class="book-item">
+                        <div class="book-card">
+                            <div class="position-relative mb-2">
+                                <img src="@book.ImageUrl" class="book-cover" alt="@book.Title">
+                            </div>
+                            <div class="book-info">
+                                <h2 class="book-title">
+                                    <a href="#" class="title-link">@book.Title</a>
+                                </h2>
+                                <p class="book-author">by @book.Author</p>
+                                <div class="rating-container">
+                                    <div class="stars">
+                                        @for (var i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= Math.Floor(book.Rating))
+                                            {
+                                                <span class="star filled">★</span>
+                                            }
+                                            else if (i - book.Rating < 1 && i - book.Rating > 0)
+                                            {
+                                                <span class="star half">★</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="star">★</span>
+                                            }
+                                        }
+                                    </div>
+                                    <span class="rating-number">@book.Rating.ToString("F2")</span>
+                                    <span class="rating-count">@(book.RatingCount >= 1000 ? $"{book.RatingCount/1000:F1}K" : book.RatingCount.ToString()) ratings</span>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="want-to-read-btn">
+                                        Want to read
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper bg-white p-4">
+        <div class="more-recommendations">
+            <h2 class="section-title">More books you might like</h2>
+            <!-- Additional recommendations would go here -->
+        </div>
     </div>
 </div>
 
 <style>
-    .hover-card {
-        transition: transform 0.2s ease-in-out;
+    .main-content {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    .content-wrapper {
+        border-radius: 8px;
+        border: 1px solid #D8D8D8;
+    }
+
+    .recommendation-header {
+        max-width: 100%;
+    }
+
+    .enjoyed-section {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .enjoyed-text {
+        color: #767676;
+    }
+
+    .book-link {
+        color: #00635D;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .book-link:hover {
+        text-decoration: underline;
+    }
+
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .book-item {
+        min-width: 120px;
+        max-width: 180px;
+    }
+
+    .book-card {
+        margin-bottom: 1rem;
     }
     
-    .hover-card:hover {
-        transform: translateY(-5px);
+    .book-cover {
+        width: 100%;
+        height: auto;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        transition: box-shadow 0.2s ease-in-out;
     }
     
-    .card {
+    .book-cover:hover {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    
+    .book-info {
+        padding: 0.5rem 0;
+    }
+    
+    .book-title {
+        font-family: 'Merriweather', serif;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        margin-bottom: 0.25rem;
+    }
+    
+    .title-link {
+        color: #382110;
+        text-decoration: none;
+    }
+    
+    .title-link:hover {
+        text-decoration: underline;
+    }
+    
+    .book-author {
+        color: #767676;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .stars {
+        display: inline-flex;
+        color: #999999;
+    }
+    
+    .star {
+        color: #999999;
+    }
+    
+    .star.filled {
+        color: #FA604A;
+    }
+    
+    .star.half {
+        position: relative;
+        color: #FA604A;
+    }
+    
+    .rating-number {
+        color: #382110;
+        font-weight: bold;
+    }
+    
+    .rating-count {
+        color: #767676;
+    }
+    
+    .want-to-read-btn {
+        background-color: #409D69;
+        color: white;
         border: none;
-        border-radius: 15px;
+        padding: 0.5rem 1rem;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
     }
     
-    .card img {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+    .want-to-read-btn:hover {
+        background-color: #3d8f61;
     }
-    
-    .btn-outline-primary {
-        border-radius: 25px;
-        padding: 8px 20px;
+
+    .section-title {
+        font-family: 'Merriweather', serif;
+        color: #382110;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
     }
-    
-    .badge {
-        font-weight: 500;
-        padding: 8px 12px;
+
+    @@media (max-width: 768px) {
+        .books-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+
+        .book-item {
+            min-width: 100px;
+        }
+    }
+
+    .highlight-carousel {
+        background: linear-gradient(to bottom, #F4F1EA, var(--goodreads-bg));
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .carousel-content {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .highlight-image {
+        max-width: 100%;
+        height: auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .highlight-image:hover {
+        transform: scale(1.02);
+    }
+
+    .highlight-text {
+        padding: 1rem 2rem;
+    }
+
+    .highlight-title {
+        font-family: 'Merriweather', serif;
+        color: var(--goodreads-brown);
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .highlight-description {
+        color: var(--goodreads-text);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .highlight-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .rating-stars {
+        color: var(--goodreads-star);
+        letter-spacing: 2px;
+    }
+
+    .rating-value {
+        font-weight: bold;
+        color: var(--goodreads-brown);
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(0,0,0,0.3);
+        border-radius: 50%;
+        padding: 1.5rem;
+    }
+
+    .carousel-indicators {
+        bottom: -2rem;
+    }
+
+    .carousel-indicators button {
+        background-color: var(--goodreads-brown);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 0 5px;
+    }
+
+    @@media (max-width: 768px) {
+        .highlight-carousel {
+            padding: 1rem 0;
+        }
+
+        .carousel-content {
+            padding: 0 1rem;
+        }
+
+        .highlight-text {
+            padding: 1rem;
+        }
+
+        .highlight-title {
+            font-size: 1.4rem;
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+        }
     }
 </style> 

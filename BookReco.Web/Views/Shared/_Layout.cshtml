@@ -6,36 +6,75 @@
     <title>@ViewData["Title"] - Book Recommendations</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
-            <div class="container">
-                <a class="navbar-brand fw-bold" asp-controller="Book" asp-action="Index">
-                    📚 Dev Books
+<body style="background-color: #F9F8F6;">
+    <header class="header-fixed">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand" style="font-family: 'Lato', sans-serif; font-weight: 700;" asp-controller="Book" asp-action="Index">
+                    goodreads
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Home</a>
+                            <a class="nav-link" style="color: #382110;" asp-controller="Book" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #382110;" href="#">My Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #382110;" href="#">Browse ▾</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #382110;" href="#">Community ▾</a>
                         </li>
                     </ul>
+                    <form class="d-flex me-3 flex-grow-1 justify-content-center" style="max-width: 500px;">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Search books" style="background-color: #FFFFFF; border: 1px solid #DCD6CC;">
+                            <button class="btn" type="submit" style="background-color: #F4F1EA; border: 1px solid #D6D0C4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#382110" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="d-flex align-items-center">
+                        <a href="#" class="me-3" style="color: #382110;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                            </svg>
+                        </a>
+                        <div class="avatar">
+                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" 
+                                 class="rounded-circle" alt="Profile" width="32" height="32" style="border: 1px solid #D8D8D8;">
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main role="main">
+    <main role="main" class="main-container">
         @RenderBody()
     </main>
 
-    <footer class="footer mt-5 py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">© @DateTime.Now.Year Dev Books - Curated reading list for developers</span>
+    <footer class="footer mt-5 py-4 bg-white border-top">
+        <div class="container-fluid px-4">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <p class="mb-0" style="color: #767676;">© @DateTime.Now.Year Goodreads Clone - Educational Project</p>
+                </div>
+                <div class="col-12 col-md-6 text-md-end">
+                    <a href="#" class="text-decoration-none me-3" style="color: #382110;">About</a>
+                    <a href="#" class="text-decoration-none me-3" style="color: #382110;">Terms</a>
+                    <a href="#" class="text-decoration-none" style="color: #382110;">Privacy</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -47,21 +86,63 @@
 </html>
 
 <style>
+    :root {
+        --goodreads-brown: #382110;
+        --goodreads-link: #00635D;
+        --goodreads-star: #FA604A;
+        --goodreads-text: #181818;
+        --goodreads-secondary: #767676;
+        --goodreads-bg: #F9F8F6;
+        --goodreads-border: #D8D8D8;
+    }
+
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Lato', sans-serif;
+        color: var(--goodreads-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header-fixed {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: white;
     }
 
     .navbar {
-        padding: 1rem 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        padding: 0.5rem 0;
     }
 
-    .navbar-brand {
-        font-size: 1.5rem;
+    .main-container {
+        flex: 1;
+        padding-top: 1rem;
+        width: 100%;
+    }
+
+    .form-control:focus {
+        border-color: var(--goodreads-border);
+        box-shadow: none;
+    }
+
+    a {
+        color: var(--goodreads-link);
+    }
+
+    a:hover {
+        color: var(--goodreads-link);
+        text-decoration: underline;
     }
 
     .footer {
-        position: relative;
-        bottom: 0;
-        width: 100%;
+        margin-top: auto;
+    }
+
+    @@media (max-width: 768px) {
+        .navbar {
+            padding: 0.5rem 1rem;
+        }
     }
 </style>

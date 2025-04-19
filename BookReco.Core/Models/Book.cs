@@ -8,4 +8,7 @@ public class Book
     public string Summary { get; set; } = string.Empty;
     public string ImageUrl { get; set; } = string.Empty;
     public string WhyRecommended { get; set; } = string.Empty;
+    public double Rating { get; set; }
+    public int RatingCount { get; set; }
+    public bool IsBookmarked { get; set; }
 } 
