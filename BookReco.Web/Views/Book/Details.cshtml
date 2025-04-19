@@ -1,0 +1,31 @@
+@model BookReco.Core.Models.Book
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Title">
+        </div>
+        <div class="col-md-8">
+            <h1>@Model.Title</h1>
+            <h3 class="text-muted">by @Model.Author</h3>
+            
+            <div class="mt-4">
+                <h4>About the Book</h4>
+                <p class="lead">@Model.Summary</p>
+            </div>
+
+            <div class="mt-4">
+                <h4>Why We Recommend This Book</h4>
+                <p>@Model.WhyRecommended</p>
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-outline-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div> 

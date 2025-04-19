@@ -1,7 +1,11 @@
+using BookReco.Core.Interfaces;
+using BookReco.Core.Recommendation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRecommendationEngine, SimpleRecommendationEngine>();
 
 var app = builder.Build();
 
@@ -14,6 +18,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -22,7 +28,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Book}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
