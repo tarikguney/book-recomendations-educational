@@ -14,14 +14,14 @@ public class BookController : Controller
 
     public IActionResult Index()
     {
-        var recommendedBook = _recommendationEngine.GetRecommendedBook();
-        return View(recommendedBook);
+        var books = _recommendationEngine.GetAllBooks();
+        return View(books);
     }
 
     public IActionResult Details(int id)
     {
-        var book = _recommendationEngine.GetRecommendedBook();
-        if (book.Id != id)
+        var book = _recommendationEngine.GetAllBooks().FirstOrDefault(b => b.Id == id);
+        if (book == null)
         {
             return NotFound();
         }

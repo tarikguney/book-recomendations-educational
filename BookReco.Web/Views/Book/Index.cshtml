@@ -1,25 +1,71 @@
-@model BookReco.Core.Models.Book
+@model IEnumerable<BookReco.Core.Models.Book>
 
 @{
-    ViewData["Title"] = "Book Recommendation";
+    ViewData["Title"] = "Book Recommendations";
 }
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Title">
-                <div class="card-body">
-                    <h1 class="card-title">@Model.Title</h1>
-                    <h3 class="card-subtitle mb-3 text-muted">by @Model.Author</h3>
-                    <p class="card-text">@Model.Summary</p>
-                    <div class="mt-4">
-                        <h4>Why We Recommend This Book:</h4>
-                        <p class="card-text">@Model.WhyRecommended</p>
-                    </div>
-                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary mt-3">Learn More</a>
-                </div>
-            </div>
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4 text-center">Developer's Reading List</h1>
+            <p class="lead text-center text-muted">Curated books to level up your software development skills</p>
         </div>
     </div>
-</div> 
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var book in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="position-relative">
+                        <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="height: 300px; object-fit: cover;">
+                        <div class="position-absolute top-0 end-0 m-2">
+                            <span class="badge bg-primary rounded-pill">Book #@book.Id</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <h6 class="card-subtitle mb-3 text-muted">by @book.Author</h6>
+                        <p class="card-text text-truncate">@book.Summary</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="d-grid">
+                            <a asp-action="Details" asp-route-id="@book.Id" 
+                               class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .card img {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    
+    .btn-outline-primary {
+        border-radius: 25px;
+        padding: 8px 20px;
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 8px 12px;
+    }
+</style> 

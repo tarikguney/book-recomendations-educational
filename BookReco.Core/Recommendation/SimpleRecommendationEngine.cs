@@ -37,7 +37,7 @@ public class SimpleRecommendationEngine : IRecommendationEngine
                 Title = "Designing Data-Intensive Applications",
                 Author = "Martin Kleppmann",
                 Summary = "The big ideas behind reliable, scalable, and maintainable systems.",
-                ImageUrl = "https://m.media-amazon.com/images/I/51OrymQeJkL._SX379_BO1,204,203,200_.jpg",
+                ImageUrl = "https://m.media-amazon.com/images/P/1449373321.01._SCLZZZZZZZ_SX500_.jpg",
                 WhyRecommended = "An essential read for understanding the fundamentals of building scalable systems. It covers everything from databases to distributed systems in a clear, comprehensive way."
             },
             new Book
@@ -65,5 +65,10 @@ public class SimpleRecommendationEngine : IRecommendationEngine
     {
         int index = _random.Next(_books.Count);
         return _books[index];
+    }
+
+    public IEnumerable<Book> GetAllBooks()
+    {
+        return _books;
     }
 } 
