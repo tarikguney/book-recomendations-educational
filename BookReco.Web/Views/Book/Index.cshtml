@@ -415,26 +415,25 @@
 
     @@media (max-width: 768px) {
         .books-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         }
 
         .book-item {
-            min-width: 140px;
-            max-width: 140px;
+            min-width: 150px;
+            max-width: 150px;
             height: auto;
         }
 
         .book-card {
-            min-height: 380px;
+            min-height: 400px;
         }
 
         .book-cover-container {
-            height: 200px;
+            height: 230px;
         }
 
         .book-title {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
     }
 
